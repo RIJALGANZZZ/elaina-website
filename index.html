@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Elaina Botz</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Arial', sans-serif;
+      background: url('https://files.catbox.moe/c40h63.jpg') no-repeat center center fixed;
+      background-size: cover;
+      color: white;
+      text-align: center;
+    }
+
+    .container {
+      padding: 20px;
+    }
+
+    .time-box {
+      font-size: 16px;
+      margin-bottom: 10px;
+      font-weight: bold;
+      color: #00ffff;
+      background-color: rgba(0,0,0,0.6);
+      padding: 6px;
+      border-radius: 10px;
+      display: inline-block;
+    }
+
+    h1 {
+      font-size: 30px;
+      font-weight: bold;
+      background-color: rgba(0, 0, 0, 0.6);
+      padding: 10px;
+      border-radius: 12px;
+      animation: rainbow 5s infinite;
+    }
+
+    @keyframes rainbow {
+      0% { color: red; }
+      20% { color: orange; }
+      40% { color: yellow; }
+      60% { color: green; }
+      80% { color: blue; }
+      100% { color: violet; }
+    }
+
+    marquee {
+      margin-top: 10px;
+      font-weight: bold;
+      font-size: 16px;
+      background: rgba(0,0,0,0.6);
+      padding: 5px;
+      border-radius: 5px;
+      color: #00ffff;
+    }
+
+    .btn {
+      background-color: rgba(0,0,0,0.7);
+      color: white;
+      padding: 12px 18px;
+      margin: 10px auto;
+      border-radius: 10px;
+      font-size: 16px;
+      display: block;
+      max-width: 240px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .btn:hover {
+      background-color: #333;
+    }
+
+    .sewa-box {
+      background-color: rgba(0,0,0,0.7);
+      margin: 20px auto;
+      padding: 15px;
+      border-radius: 10px;
+      max-width: 300px;
+      display: none;
+    }
+
+    audio {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="time-box" id="timeBox">⏳ Memuat waktu...</div>
+
+    <marquee scrollamount="6">🎉 Welcome kak di website Elaina — kalau mau sewa bot chat aja owner nya 🎉</marquee>
+
+    <h1>Selamat Datang Di Website Elaina Botz</h1>
+
+    <a href="https://wa.me/34604216991" class="btn">💬 Chat Owner</a>
+    <a href="https://chat.whatsapp.com/JSAo2VdOjxqCxmFOQi21ri" class="btn">👥 Group Bot Elaina</a>
+    <a href="https://whatsapp.com/channel/0029Vb69G8eE50UgA7ZlyV1Q" class="btn">📢 Channel Bot Elaina</a>
+
+    <button onclick="playRandomSong()" class="btn">🎵 Play Lagu</button>
+    <button onclick="toggleSewa()" class="btn">💰 Sewa Bot</button>
+
+    <div class="sewa-box" id="sewaBox">
+      <h3>💸 Harga Sewa Bot Elaina</h3>
+      <ul style="list-style: none; padding: 0;">
+        <li>• 1 Minggu: Rp 5.000</li>
+        <li>• 1 Bulan: Rp 10.000</li>
+        <li>• Permanen: Rp 20.000</li>
+      </ul>
+    </div>
+
+    <audio id="audioPlayer">
+      <source id="source" src="">
+    </audio>
+  </div>
+
+  <script>
+    const songs = [
+      "https://files.catbox.moe/94aoq9.mp3",
+      "https://files.catbox.moe/glhrsg.mp3"
+    ];
+
+    function playRandomSong() {
+      const randomSong = songs[Math.floor(Math.random() * songs.length)];
+      const audio = document.getElementById("audioPlayer");
+      const source = document.getElementById("source");
+      source.src = randomSong;
+      audio.load();
+      audio.play();
+    }
+
+    function toggleSewa() {
+      const box = document.getElementById("sewaBox");
+      box.style.display = box.style.display === "none" ? "block" : "none";
+    }
+
+    // Update waktu WIB
+    function updateTime() {
+      const now = new Date();
+
+      // Konversi ke waktu Indonesia (WIB / UTC+7)
+      const utc = now.getTime() + (now.getTimezoneOffset() * 60000);
+      const wibTime = new Date(utc + (3600000 * 7));
+
+      const days = ['Minggu','Senin','Selasa','Rabu','Kamis','Jumat','Sabtu'];
+      const months = ['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
+
+      const hari = days[wibTime.getDay()];
+      const tanggal = wibTime.getDate();
+      const bulan = months[wibTime.getMonth()];
+      const tahun = wibTime.getFullYear();
+      const jam = String(wibTime.getHours()).padStart(2, '0');
+      const menit = String(wibTime.getMinutes()).padStart(2, '0');
+
+      document.getElementById('timeBox').innerText = `🕓 ${hari}, ${tanggal} ${bulan} ${tahun} | ${jam}:${menit} WIB`;
+    }
+
+    setInterval(updateTime, 1000);
+    updateTime();
+  </script>
+</body>
+</html>
